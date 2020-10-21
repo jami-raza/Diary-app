@@ -26,7 +26,7 @@ const login = (schema:any, req: Request): AuthResponse | Response => {
 };
 const Signup = (schema:any, req:Request): AuthResponse | Response => {
     const data = JSON.parse(req.requestBody);
-    const exUser = schema.users.findby({ username:data.username });
+    const exUser = schema.users.findBy({ username:data.username });
     if (exUser) {
         return handleErrors(null, 'A user with that username already exist');
     }
@@ -37,4 +37,4 @@ const Signup = (schema:any, req:Request): AuthResponse | Response => {
         token,
     };
 };
-export default {login, Signup}
+export default {login, Signup};

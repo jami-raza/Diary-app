@@ -7,16 +7,20 @@ import { saveToken, setAuthState } from './authSlice';
 import { setUser } from './userSlice';
 import { AuthResponse } from '../../Services/mirage/routes/user';
 import { useAppDispatch } from '../../store';
+import { yupResolver } from '@hookform/resolvers/yup';
 
 const schema = Yup.object().shape({
     username: Yup.string()
     .required('What ? No userName?')
     .max(16, 'UserName cannot be longer than 16 characters'),
     password: Yup.string().required('Without a password, "None shall pass!"'),
-    email: Yup.string().email('Please provide avalid email address (abc@xy.z)'),
+    email: Yup.string().email('Please provide a valid email address (abc@xy.z)'),
 });
 const Auth: FC = () => {
-    const { handleSubmit, register, errors } = useForm<User>();
+    const { handleSubmit, register, errors } = useForm<User>({
+        validationSchema: schema,
+    });
+    
 const [isLogin, setLogin] = useState(true);
 const [loading, setLoading] = useState(false);
 const dispatch = useAppDispatch();
@@ -33,8 +37,8 @@ const submitForm = (data: User) => {
             dispatch(setAuthState(true))
         }
     })
-    .catch((error) => {
-        console.log(error);
+    .catch((errors) => {
+        console.log(errors);
     })
     .finally(() => {
         setLoading(false);
