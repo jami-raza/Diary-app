@@ -2,7 +2,7 @@ import axios, {AxiosInstance, AxiosResponse, AxiosError} from 'axios';
 import {showAlert} from '../../utils'
 
 const http: AxiosInstance = axios.create({
-    baseURL: 'http://diaries-dummy-app.surge.sh/',
+    baseURL: 'http://diaries-dummy-app.surge.sh',
 });
 http.defaults.headers.post['Content-Type'] = 'application/json';
 http.interceptors.response.use(
