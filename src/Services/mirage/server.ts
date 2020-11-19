@@ -39,7 +39,7 @@ export const setupServer = (env?: string): Server =>{
             
         },
         routes(): void {
-            this.urlPrefix = 'http://diaries-dummy-app.surge.sh/';
+            this.urlPrefix = 'https://diaries.app';
             
 
             this.get('/diaries/entries/:id', diary.getEntries);
