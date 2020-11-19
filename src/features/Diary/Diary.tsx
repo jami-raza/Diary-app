@@ -6,7 +6,7 @@ import { Diary } from '../../interfaces/diary.interface';
 import { addDiary } from './diarySlice';
 import Swal from 'sweetalert2';
 import { User } from '../../interfaces/user.interface';
-import {Switch,Route} from 'react-router-dom';
+import { Switch,Route } from 'react-router-dom';
 import DiaryEntriesList from './Diarylist';
 import { useAppDispatch } from '../../store';
 import dayjs from 'dayjs';
@@ -20,8 +20,9 @@ const Diaries: FC = () => {
 
     useEffect(()=> {
         const fetchDiaries = async () => {
+            const abortController = new AbortController();
             if (user) {
-                http.get <null, Diary[]>(`diaries/${user.id}`).then((data) => {
+                http.get <null, Diary[]>(`/diaries/${user.id}`).then((data) => {
                     if ( data && data.length > 0 ) {
                         const sortedByUpdatedAt = data.sort((a,b)=>{
                             return dayjs(b.updatedAt).unix() - dayjs(a.updatedAt).unix();
@@ -31,6 +32,7 @@ const Diaries: FC = () => {
                     }
                 });
             }
+            return abortController.abort
         };
         fetchDiaries();
     }, [dispatch, user]);
@@ -46,10 +48,7 @@ const Diaries: FC = () => {
                 titleText: 'Diary title',
                 input: 'text',
             },
-            {
-                titleText: 'Diary title',
-                input: 'text',
-            },
+            
             {
                 titleText: 'Private or Public Diary?',
                 input: 'radio',
@@ -87,9 +86,9 @@ const Diaries: FC = () => {
     return (
         <div style={{ padding: '1em 0.4em' }}>
             <Switch>
-                <Route path="/diary/:id">
-                    <DiaryEntriesList/>
-                </Route>
+                <Route path="/diary/:id" ><DiaryEntriesList/></Route>
+                    
+                
                 <Route path="/">
                     <button onClick={createDiary}>
                         Create New

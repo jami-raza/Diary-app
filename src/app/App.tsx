@@ -16,11 +16,10 @@ const App: FC = () => {
       
       <Switch>
         <Route path="/">
-      <Suspense fallback={<p>loading...</p>}>
-            {isLoggedIn ? <Home /> : <Auth />}
-          
+            <Suspense fallback={<p>loading...</p>}>
+              {isLoggedIn ? <Home/> : <Auth/>}
             </Suspense>
-            </Route>
+           </Route> 
       </Switch>
       
     </Router>

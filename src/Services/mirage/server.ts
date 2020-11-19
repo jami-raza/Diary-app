@@ -39,7 +39,7 @@ export const setupServer = (env?: string): Server =>{
             
         },
         routes(): void {
-            this.urlPrefix = 'https://diaries.app';
+            this.urlPrefix = 'http://localhost:3000/';
             
 
             this.get('/diaries/entries/:id', diary.getEntries);

@@ -2,7 +2,7 @@ import axios, {AxiosInstance, AxiosResponse, AxiosError} from 'axios';
 import {showAlert} from '../../utils'
 
 const http: AxiosInstance = axios.create({
-    baseURL: 'https://diares.app',
+    baseURL: 'http://localhost:3000/',
 });
 http.defaults.headers.post['Content-Type'] = 'application/json';
 http.interceptors.response.use(
